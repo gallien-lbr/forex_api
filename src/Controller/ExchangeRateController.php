@@ -4,10 +4,8 @@ namespace App\Controller;
 
 use App\Service\ExchangeRateApi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpClient\CachingHttpClient;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Component\HttpKernel\HttpCache\Store;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ExchangeRateController extends AbstractController
 {
@@ -18,9 +16,13 @@ class ExchangeRateController extends AbstractController
         $this->api = $api;
     }
 
-    public function latest():JsonResponse{
-        $response = $this->api->getClient()->request('GET', '/latest');
-        return  JsonResponse::fromJsonString($response->getContent());
+    public function method(string $action):JsonResponse{
+        if(!$action){
+            throw new NotFoundHttpException('not found');
+        }
+        return  $this->api->getHttpContent($action);
     }
+
+
 
 }
