@@ -1,3 +1,11 @@
 forex:
     path: /forex/{action}
     controller: App\Controller\ExchangeRateController::method
+
+freelance_tools_income:
+    path: /freelance-tools/income
+    controller: App\Controller\FreelanceToolsController::getIncome
+
+freelance_tools_salesprice:
+    path: /freelance-tools/salesprice
+    controller: App\Controller\FreelanceToolsController::getSalesPrice
